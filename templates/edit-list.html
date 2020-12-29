@@ -1,0 +1,24 @@
+{%extends 'base.html'%}
+
+{%block main%}
+<ul>
+    {%for key,value in view_list.items()%}
+    <li class="list-group-item">
+        {{key}}: {{value}}
+    </li>
+
+    {%endfor%}
+</ul>
+
+<form method="POST">
+    <div class="row">
+        <div class="col">
+            <input name="new_name" type="text" class="form-control" placeholder="New Name">
+        </div>
+        <div class="col">
+            <button type="submit">Add</button>
+        </div>
+    </div>
+
+</form>
+{%endblock%}

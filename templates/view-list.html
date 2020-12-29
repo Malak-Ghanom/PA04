@@ -1,0 +1,12 @@
+{%extends 'base.html'%}
+
+{%block main%}
+<ul>
+    {%for key,value in view_list.items()%}
+    <li class="list-group-item">
+        {{key}}: {{value}}
+    </li>
+
+    {%endfor%}
+</ul>
+{%endblock%}
