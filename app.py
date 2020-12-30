@@ -15,9 +15,12 @@ index = 1
 # lists variable
 task_list = {}
 tasks_list = {}
+task_list['tasks']=[]
+
 # tasks variable
 task = {}
 tasks = {}
+
 
 # save data
 # store = marshal.dumps(task_list)
@@ -88,10 +91,10 @@ def new_task():
         task['description']=description
         tasks[index_tasks]=task.copy()
         index_tasks += 1
-
+        
         for tasklist in tasks_list.values():
             if tasklist['name'] == assigned_list:
-                tasklist['tasks']=task.copy()
+                tasklist['tasks'].append(task.copy())
 
         return redirect(url_for('home'))
 
