@@ -4,7 +4,7 @@
 <ul>
     {%for key,value in view_list.items()%}
     <li class="list-group-item">
-        {{key}}: {{value}}
+        {{key}}: {{value}}  : {{value['tasks']}}
     </li>
 
     {%endfor%}

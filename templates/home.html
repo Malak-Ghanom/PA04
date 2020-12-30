@@ -1,10 +1,10 @@
 {%extends 'base.html'%}
 
 {%block main%}
+<h3>
+    Tasks List
+</h3>
 {%if tasks_list%}
-    <h3>
-        Tasks List
-    </h3>
     <ul class="list-group">
         {%for key,value in tasks_list.items()%}
         <li class="list-group-item">
@@ -43,12 +43,17 @@
         </li>
         {%endfor%}
         </ul>
+        
+{%else%}
+<p>You do not have any task list right now</p>
+        {%endif%}
 
-    <hr>
+        <hr>
+        <h3>
+            Tasks
+        </h3>
 
-    <h3>
-        Tasks
-    </h3>
+        {%if tasks%}
     <ul class="list-group">
         {%for key,value in tasks.items()%}
         <li class="list-group-item">{{key}}: {{value['name']}}

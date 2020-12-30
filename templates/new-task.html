@@ -1,32 +1,64 @@
 {%extends 'base.html'%}
 
 {%block main%}
+
 <form method="POST">
     <div class="row">
+        <!-- name of the task -->
         <div class="col-6">
-            <input name="task_name" type="text" class="form-control" placeholder="Task name">
+            <label for="taskname">Task name</label>
+            <input name="task_name" type="text" class="form-control" placeholder="Insert name" id="taskname">
         </div>
     </div>
-    
+
+    <!-- choose list -->
+    <div class="form-group row">
+        <div class="col-6">
+            <label for="exampleFormControlSelect1">Assign task to the appropiate task list</label>
+            <select class="form-control" id="exampleFormControlSelect1" name="assigned_list">
+                {%for key,list in tasks_list.items()%}
+                <option>{{list['name']}}</option>
+                {%endfor%}
+            </select>
+        </div>
+    </div>
+
+
+    <!-- status of the task -->
+    <div class="form-group row">
+        <div class="col-6">
+            <label for="exampleFormControlSelect1">Status</label>
+            <select class="form-control" id="exampleFormControlSelect1" name="status">
+                <option>New</option>
+                <option>In progress</option>
+                <option>Done</option>
+            </select>
+        </div>
+    </div>
+
+
+    <div class="form-group row">
+        <div class="col-6">
+            <label for="exampleFormControlSelect1">Priority</label>
+            <select class="form-control" id="exampleFormControlSelect1" name="priority">
+                <option>High</option>
+                <option>Medium</option>
+                <option>Low</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- description -->
+    <div class="form-group row">
+        <div class="col-6">
+            <label for="exampleFormControlTextarea1">Description</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="description"></textarea>
+        </div>
+    </div>
+
     <div class="row">
-        <div class="col-6">
-            <div class="form-group">
-                <label for="exampleFormControlSelect1">Example select</label>
-                <select name="proirity" class="form-control" id="exampleFormControlSelect1" placeholder="Proirity">
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
-                </select>
-              </div>
-        </div>
-    </div>
-
-
-
-        <div class="col">
-            <button type="submit">Add</button>
+        <div class="col-1">
+            <button  type="submit">Add</button>
         </div>
     </div>
 </form>
