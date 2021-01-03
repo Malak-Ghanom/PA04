@@ -98,11 +98,17 @@ def new_task():
 
         return redirect(url_for('home'))
 
-# view details for a given list
+# view details for a list
 @ app.route('/list/view/<int:index>')
 def view_list(index):
     view_list=tasks_list[index]
     return render_template('view-list.html', view_list=view_list)
+
+# view details for a task
+@ app.route('/task/view/<int:index>')
+def view_task(index):
+    view_task = tasks[index]
+    return render_template('view-task.html', view_task=view_task)
 
 # remove specific list
 @ app.route('/list/remove/<int:index>')
@@ -110,6 +116,14 @@ def remove_list(index):
     global tasks_list
     del tasks_list[index]
     return render_template('home.html', tasks_list=tasks_list, tasks=tasks)
+
+# remove specific task
+@ app.route('/task/remove/<int:index>')
+def remove_task(index):
+    global tasks
+    del tasks[index]
+    return render_template('home.html', tasks_list=tasks_list, tasks=tasks)
+
 
 
 # edit name of the list
@@ -121,4 +135,26 @@ def edit_list(index):
     else:
         name=request.form['new_name']
         tasks_list[index]['name']=name
+        return redirect(url_for('home'))
+
+
+# edit task
+@ app.route('/task/edit/<int:index>', methods=['GET', 'POST'])
+def edit_task(index):
+    if request.method == 'GET':
+        view_task=tasks[index]
+        return render_template('edit-task.html', view_task=view_task)
+    else:
+        name=request.form['new_name']
+        status=request.form['new_status']
+        priority=request.form['new_priority']
+        description=request.form['new_description']
+        last_update = datetime.now()
+
+        tasks[index]['name']=name
+        tasks[index]['status']=status
+        tasks[index]['priority']=priority
+        tasks[index]['description']=description
+        tasks[index]['last_update']=last_update
+
         return redirect(url_for('home'))

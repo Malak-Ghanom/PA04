@@ -1,0 +1,12 @@
+{%extends 'base.html'%}
+
+{%block main%}
+<ul>
+    {%for key,value in view_task.items()%}
+    <li class="list-group-item">
+        {{key}}: {{value}}  : {{value['tasks']}}
+    </li>
+
+    {%endfor%}
+</ul>
+{%endblock%}
