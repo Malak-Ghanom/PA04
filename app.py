@@ -15,7 +15,7 @@ index = 1
 # lists variable
 task_list = {}
 tasks_list = {}
-task_list['tasks']=[]
+task_list['tasks'] = []
 
 # tasks variable
 task = {}
@@ -45,53 +45,63 @@ def login():
     return render_template('login.html')
 
 # base of the all pages
+
+
 @ app.route('/base')
 def base():
     return render_template('base.html')
 
 # home page that contain existing lists
+
+
 @ app.route('/home')
 def home():
     return render_template('home.html', tasks_list=tasks_list, tasks=tasks)
 
 # create a new list
+
+
 @ app.route('/newlist', methods=['POST', 'GET'])
 def new_list():
     global index_lists
     if request.method == 'GET':
         return render_template('new-list.html')
     else:
-        time=datetime.now()
-        list_name=request.form['list_name']
-        task_list['name']=list_name
-        task_list['created_at']=time
+        time = datetime.now()
+        list_name = request.form['list_name']
+        task_list['name'] = list_name
+        task_list['created_at'] = time
+        task_list['last_update'] = time
         print(time)
-        tasks_list[index_lists]=task_list.copy()
+        tasks_list[index_lists] = task_list.copy()
         index_lists += 1
         return redirect('home')
 
 # add new task
+
+
 @ app.route('/newtask', methods=['POST', 'GET'])
 def new_task():
-    global index_tasks,tasks_list
+    global index_tasks, tasks_list
     if request.method == 'GET':
-        return render_template('new-task.html',tasks_list=tasks_list)
+        return render_template('new-task.html', tasks_list=tasks_list)
     else:
-        time=datetime.now()
-        task_name=request.form['task_name']
+        time = datetime.now()
+        task_name = request.form['task_name']
         status = request.form['status']
         priority = request.form['priority']
         description = request.form['description']
         assigned_list = request.form['assigned_list']
 
-        task['name']=task_name
-        task['created_at']=time
-        task['status']=status
-        task['priority']=priority
-        task['description']=description
-        tasks[index_tasks]=task.copy()
+        task['name'] = task_name
+        task['created_at'] = time
+        task['status'] = status
+        task['priority'] = priority
+        task['description'] = description
+        task['last_update'] = time
+        tasks[index_tasks] = task.copy()
         index_tasks += 1
-        
+
         for tasklist in tasks_list.values():
             if tasklist['name'] == assigned_list:
                 tasklist['tasks'].append(task.copy())
@@ -99,9 +109,11 @@ def new_task():
         return redirect(url_for('home'))
 
 # view details for a list
+
+
 @ app.route('/list/view/<int:index>')
 def view_list(index):
-    view_list=tasks_list[index]
+    view_list = tasks_list[index]
     return render_template('view-list.html', view_list=view_list)
 
 # view details for a task
@@ -125,16 +137,18 @@ def remove_task(index):
     return render_template('home.html', tasks_list=tasks_list, tasks=tasks)
 
 
-
 # edit name of the list
 @ app.route('/list/edit/<int:index>', methods=['GET', 'POST'])
 def edit_list(index):
     if request.method == 'GET':
-        view_list=tasks_list[index]
+        view_list = tasks_list[index]
         return render_template('edit-list.html', view_list=view_list)
     else:
-        name=request.form['new_name']
-        tasks_list[index]['name']=name
+        last_update = datetime.now()
+        name = request.form['new_name']
+        tasks_list[index]['name'] = name
+        tasks_list[index]['last_update'] = last_update
+
         return redirect(url_for('home'))
 
 
@@ -142,19 +156,19 @@ def edit_list(index):
 @ app.route('/task/edit/<int:index>', methods=['GET', 'POST'])
 def edit_task(index):
     if request.method == 'GET':
-        view_task=tasks[index]
+        view_task = tasks[index]
         return render_template('edit-task.html', view_task=view_task)
     else:
-        name=request.form['new_name']
-        status=request.form['new_status']
-        priority=request.form['new_priority']
-        description=request.form['new_description']
+        name = request.form['new_name']
+        status = request.form['new_status']
+        priority = request.form['new_priority']
+        description = request.form['new_description']
         last_update = datetime.now()
 
-        tasks[index]['name']=name
-        tasks[index]['status']=status
-        tasks[index]['priority']=priority
-        tasks[index]['description']=description
-        tasks[index]['last_update']=last_update
+        tasks[index]['name'] = name
+        tasks[index]['status'] = status
+        tasks[index]['priority'] = priority
+        tasks[index]['description'] = description
+        tasks[index]['last_update'] = last_update
 
         return redirect(url_for('home'))

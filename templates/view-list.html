@@ -1,12 +1,33 @@
 {%extends 'base.html'%}
 
 {%block main%}
+
+<h3>{{view_list['name'] | title}}</h3> <br>
+
+<div class="col-6">
 <ul>
     {%for key,value in view_list.items()%}
+    {%if key != 'tasks'%}
     <li class="list-group-item">
-        {{key}}: {{value}}  : {{value['tasks']}}
+        <b>{{key}}</b>: {{value}}
     </li>
-
+    {%endif%}
     {%endfor%}
 </ul>
+</div>
+
+<h4>Tasks</h4>
+<div class="col-6">
+    <ul>
+        {%for task in view_list['tasks']%}
+        <h6>{{task['name'] | title}}</h6>
+        {%for key,value in task.items()%}
+        <li class="list-group-item row">
+            <b>{{key}}</b>: {{value}}
+        </li>
+        {%endfor%}
+        <br>
+        {%endfor%}
+    </ul>
+</div>
 {%endblock%}
